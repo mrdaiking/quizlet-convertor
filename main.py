@@ -69,7 +69,7 @@ def readFile():
     file.close()
 
 
-def pandaReadFile():
+def readNewWords():
     # Creating the dataframe
     df = pd.read_csv("doushi1.csv")
 
@@ -84,7 +84,23 @@ def pandaReadFile():
     df = df[['言葉', 'Value']]
     print(df.to_string(index=False))
 
+def readKanji():
+    # Creating the dataframe
+    df = pd.read_csv("kanji.csv")
+
+    # column index value of "Name" column is 0
+    # We have set takeable = True
+    # to interpret the index / col as indexer
+    # value = df._get_value(4, 1, takeable=True)
+    # print((df['読み方']).to_string(index=False))
+    # print(value)
+    df = df[[ 'Kanji','Han', 'Kun', 'On', 'Collocation', 'Oboekata']]
+    df['Value'] = ";" + df['Han'].astype(str) + "-" + df['Kun'].astype(str) +  df['On'].astype(str) + "-" + df['Collocation'].astype(str) + "-" + df['Oboekata'].astype(str)
+    df = df[['Kanji', 'Value']]
+    print(df.to_string(index=False))
+
 if __name__ == '__main__':
     # readFile()
-    pandaReadFile()
+    # readNewWords()
+    readKanji()
     # main()
